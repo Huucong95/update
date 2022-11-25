@@ -171,15 +171,20 @@ async function process_tasks() {
       }
     }
   }
-  setTimeout(() => {
-    process.exit(1);
-  }, 10000);
 }
 try {
-  process_tasks();
-  // setTimeout(() => {
-  //   process.exit(1);
-  // }, 10000);
+  setInterval(function () {
+    process_tasks();
+  }, 120000);
+
+//   process_tasks();
+//   setTimeout(() => {
+//     process_tasks();
+//   }, 10000);
+//   // setTimeout(() => {
+//   //   process.exit(1);
+//   // }, 10000);
+//   setInterval;
 } catch (err) {
   console.log("Error getting documents", err);
 }
