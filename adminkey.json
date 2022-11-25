@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "vnworldcup",
+  "private_key_id": "8c917b9f43e6baafc04d7266e641992773ef22f6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDkp1IxCvIJYFgy\nbJ1u2v19+3J3E3xg4u/gGBXA01CIbEexV+HODgojMZ/x3+SC3QIC1OA74oDjtpCa\nVo91NRla0s1Q5LAQ/tQky6xSJucYb7+ZYKhRCin/XlIleiaZ6SeMDaw/CfuliwxB\nm3WD2sMJWRNIbDX1S6cQE9UXNyoRRdm4KIeZbVGuVpTsBhIvBwMJ6oesZLQaZNuV\nnp2mMeasGEQzXMO3ZB3g1Zq7WG43ptd2NusAbUF1wPeqjGQGSeBYaopuZrcpAjk0\n2fdQBkkwwn0rhChpJRIxOSvepY0/X+ph+UwQeyA18UBufZFuh3WE+LdkNJZkNjwk\nNcS9/zEBAgMBAAECggEAYFkvFZJOpevOjkTdW+p0OYNcWte/p9XIjU2o0O1aOHok\nBZMKB7k7xVOyWYnl8Myu/cF00Vcix5FUwmwqHBHpYq+EK4uJs0el3fFi5eUVqOLh\nwgAMPMXDJ6O3iqo7nMw1yVqzk4ah3sJGQlj+/jYOzCAYM4LBg+DCf1BUEOnCVK8l\n2CpS0AMhP7kSz+e9DPmQzv/HVJj/vHPENo8D49AfHMlUtaKH/SuP95xu8Jx9xOZb\nunmIccLm3VboM6v9S+sjCIIKAV2TW3K8cE42a5Ubz2fhjhmXFfBYbbkP8+HjcrH1\nTJ1Y5EZ0jmonexyT50+raFbMuJa5TGPGmuAHu79WlwKBgQD3tHFhYF5bBdZ0QNEs\nTVv8c2n8JT2ZVGbK1Nv/kmEjcK3AvPYs8Cy4dUlwHK4uCPorcUKusvfxiM5Hnkh8\nildfRD/fzrLU8kTCqAaWIkswRtCAXwvnqe4LaOl1gGiirXeq34Yqd20t+f6+SZTk\nh3ITNiauoOdSxGiYcEnTseF0WwKBgQDsT42Spx1Bc4Exf7qoT9HSxsHSidoZU+U0\nu2jDKNz+yy/8hsPU6getQMC1kdq0+TBsQGHxqBNQ88vO6rNsrIrEWKiWaUDvsBJY\nqHj4ZmPIX+WfGJ0LYN0q3txyFHxurZyoxrH8y1GVNZhk51TSJrQ1I5PwAgrxHmjl\nZiX+tE7+0wKBgEtU4iJmJ2vxM445ZCPgBviYtQPM45Xs+DH5WEq6XrZjf0Qdc5Sp\nGkCi0sm4vzQa4NIzaL8uiH85Rtq7BXpyrC252N8cwoBGiajVZuNj3I/7CU/xF/LF\nWDK6Hj3w5mGK9djOj8P8fAS+gb2nLRPvKT80ecEkCBXAy7qIc7tg3pr/AoGAbLl5\ncLUU381N7sFO1yvKZUjvWnf0cdzIw0dKvygo7c38qRo0NdzrZUo6oA+YadWQ8u14\nYuAq6v8QkYYowWJtgkMsZe/NYbpH5qS068zoMgP1OQrxDpAlkhjxokdMrPuR7ZFl\nyOKfCaCcGijZPMtz9FMHONEnyaJtLsadyp+ZDOMCgYEAgNEdcH92rItLqHS2FJnv\noRpzxnv80EwVU+3Mmy2jqNSS8DjZ0jSAzOao6LeVUN+ps3AW95pnFijgLduIPKxI\nrV5FG12rGHeHXB65gkW0WYTYELDZ8pRp0XcLsPNtM5IQtZZWjEh+9i/KuxXl4vb4\na+kMYb5Zml8i9XNwg1PYsnM=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-3sxry@vnworldcup.iam.gserviceaccount.com",
+  "client_id": "108881457643066381986",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-3sxry%40vnworldcup.iam.gserviceaccount.com"
+}

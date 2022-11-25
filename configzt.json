@@ -1,0 +1,4 @@
+{
+    "database_url": "https://vnworldcup-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "service_acount_file": "./adminkey.json"
+  }
