@@ -67,6 +67,10 @@ const getScore = (home, visitor, homePrediction, visitorPrediction) => {
   }
   return points;
 };
+const isStart = (time) => {
+  let now = Math.floor(new Date().getTime() / 1000);
+  return time - now < 0;
+};
 
 // --------------------------------------------------------
 // Get results and update match & user scores on DB
@@ -75,6 +79,7 @@ console.log("Updating scores...");
 let points = 0;
 let beforePoints = 0;
 let afterPoints = 0;
+let c = 0;
 
 async function process_tasks() {
   const matches = await db.ref("matches").once("value");
@@ -84,7 +89,6 @@ async function process_tasks() {
   const response = await fetch(dataUrl);
   const fifa = await response.json();
   for await (const item of fifa.Results) {
-    let c = 0;
     let matchChanged = false;
     let homeScore = -1;
     let awayScore = -1;
@@ -121,7 +125,11 @@ async function process_tasks() {
           awayScore = item.Away.Score;
         }
         if (matchChanged) {
-          if ((item.Home.Score !== null) & (item.Away.Score !== null)) {
+          if (
+            item.Home.Score !== null &&
+            item.Away.Score !== null &&
+            isStart(item.timestamp)
+          ) {
             const users = db.ref().child("users");
             const snapshot = await users?.once("value");
             const usersDetails = await snapshot.val();
@@ -183,9 +191,10 @@ try {
 
   setInterval(function () {
     process_tasks();
+    c = 0;
   }, 120000);
 
-  //   process_tasks();
+  // process_tasks();
   //   setTimeout(() => {
   //     process_tasks();
   //   }, 10000);
