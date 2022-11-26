@@ -1,6 +1,10 @@
 const admin = require("firebase-admin");
 const fetch = require("node-fetch");
 
+const express = require("express");
+const app = express();
+const PORT = process.env.PORT || 3030;
+
 // --------------------------------------------------------
 // Set FIFA Results URL
 // --------------------------------------------------------
@@ -173,18 +177,23 @@ async function process_tasks() {
   }
 }
 try {
-  setInterval(function () {
-    process_tasks();
-  }, 120000);
+    app.listen(PORT, () => {
+        console.log(`server started on port ${PORT}`);
+      });
+      
+  //   setInterval(function () {
+  //     process_tasks();
+  //   }, 1000);
 
-//   process_tasks();
-//   setTimeout(() => {
-//     process_tasks();
-//   }, 10000);
-//   // setTimeout(() => {
-//   //   process.exit(1);
-//   // }, 10000);
-//   setInterval;
+  process_tasks();
+  //   setTimeout(() => {
+  //     process_tasks();
+  //   }, 10000);
+  //   // setTimeout(() => {
+  //   //   process.exit(1);
+  //   // }, 10000);
+  //   setInterval;
 } catch (err) {
   console.log("Error getting documents", err);
 }
+
