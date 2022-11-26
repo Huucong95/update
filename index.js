@@ -72,7 +72,6 @@ const getScore = (home, visitor, homePrediction, visitorPrediction) => {
 // Get results and update match & user scores on DB
 // --------------------------------------------------------
 console.log("Updating scores...");
-let c = 0;
 let points = 0;
 let beforePoints = 0;
 let afterPoints = 0;
@@ -85,6 +84,7 @@ async function process_tasks() {
   const response = await fetch(dataUrl);
   const fifa = await response.json();
   for await (const item of fifa.Results) {
+    let c = 0;
     let matchChanged = false;
     let homeScore = -1;
     let awayScore = -1;
@@ -177,15 +177,15 @@ async function process_tasks() {
   }
 }
 try {
-    app.listen(PORT, () => {
-        console.log(`server started on port ${PORT}`);
-      });
-      
-    setInterval(function () {
-      process_tasks();
-    }, 120000);
+  app.listen(PORT, () => {
+    console.log(`server started on port ${PORT}`);
+  });
 
-//   process_tasks();
+  setInterval(function () {
+    process_tasks();
+  }, 120000);
+
+  //   process_tasks();
   //   setTimeout(() => {
   //     process_tasks();
   //   }, 10000);
@@ -196,4 +196,3 @@ try {
 } catch (err) {
   console.log("Error getting documents", err);
 }
-
