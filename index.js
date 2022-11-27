@@ -125,9 +125,7 @@ async function process_tasks() {
           awayScore = item.Away.Score;
         }
         if (matchChanged) {
-          if (
-            item.Home.Score !== null &&
-            item.Away.Score !== null) {
+          if (item.Home.Score !== null && item.Away.Score !== null) {
             const users = db.ref().child("users");
             const snapshot = await users?.once("value");
             const usersDetails = await snapshot.val();
@@ -187,9 +185,12 @@ try {
     console.log(`server started on port ${PORT}`);
   });
 
-  setInterval(function () {
-    process_tasks();
+  //   setInterval(function () {
+  //     c = 0;
+  //   }, 120000);
+  setTimeout(() => {
     c = 0;
+    process_tasks();
   }, 120000);
 
   // process_tasks();
