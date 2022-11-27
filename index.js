@@ -185,13 +185,9 @@ try {
     console.log(`server started on port ${PORT}`);
   });
 
-  //   setInterval(function () {
-  //     c = 0;
-  //   }, 120000);
-  setTimeout(() => {
+  setInterval(function () {
     c = 0;
-    process_tasks();
-  }, 120000);
+  }, 60000);
 
   // process_tasks();
   //   setTimeout(() => {
