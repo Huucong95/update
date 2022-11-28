@@ -125,7 +125,11 @@ async function process_tasks() {
           awayScore = item.Away.Score;
         }
         if (matchChanged) {
-          if (item.Home.Score !== null && item.Away.Score !== null) {
+          if (
+            item.Home.Score !== null &&
+            item.Away.Score !== null &&
+            match.timestamp - Math.floor(new Date().getTime() / 1000) < 0
+          ) {
             const users = db.ref().child("users");
             const snapshot = await users?.once("value");
             const usersDetails = await snapshot.val();
