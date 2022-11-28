@@ -191,6 +191,7 @@ try {
 
   setInterval(function () {
     c = 0;
+    process_tasks();
   }, 60000);
 
   // process_tasks();
