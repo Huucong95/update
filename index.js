@@ -101,10 +101,8 @@ async function process_tasks() {
     );
     for await (const match of matches.val()) {
       matchChanged = false;
-      if (
-        match?.fifaId === item.IdMatch &&
-        match.timestamp - Math.floor(new Date().getTime() / 1000) < 0
-      ) {
+      //   console.log( match?.timestamp - Math.floor(new Date().getTime() / 1000) < 0);
+      if (match?.fifaId === item.IdMatch) {
         homeScore = match.homeScore;
         awayScore = match.awayScore;
         homePrevScore = match.homeScore;
@@ -113,19 +111,23 @@ async function process_tasks() {
           parseInt(item.Home.Score) >= 0 &&
           match.homeScore !== item.Home.Score
         ) {
-          db.ref(`matches/${match.game}/homeScore`).set(item.Home.Score);
-          matchChanged = true;
-          console.log("Update Home Score: " + item.Home.Score);
-          homeScore = item.Home.Score;
+          if (match.timestamp - Math.floor(new Date().getTime() / 1000) < 0) {
+            db.ref(`matches/${match.game}/homeScore`).set(item.Home.Score);
+            matchChanged = true;
+            console.log("Update Home Score: " + item.Home.Score);
+            homeScore = item.Home.Score;
+          }
         }
         if (
           parseInt(item.Away.Score) >= 0 &&
           match.awayScore !== item.Away.Score
         ) {
-          db.ref(`matches/${match.game}/awayScore`).set(item.Away.Score);
-          matchChanged = true;
-          console.log("Update Away Score: " + item.Away.Score);
-          awayScore = item.Away.Score;
+          if (match.timestamp - Math.floor(new Date().getTime() / 1000) < 0) {
+            db.ref(`matches/${match.game}/awayScore`).set(item.Away.Score);
+            matchChanged = true;
+            console.log("Update Away Score: " + item.Away.Score);
+            awayScore = item.Away.Score;
+          }
         }
         if (matchChanged) {
           if (
