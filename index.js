@@ -101,7 +101,10 @@ async function process_tasks() {
     );
     for await (const match of matches.val()) {
       matchChanged = false;
-      if (match?.fifaId === item.IdMatch) {
+      if (
+        match?.fifaId === item.IdMatch &&
+        match.timestamp - Math.floor(new Date().getTime() / 1000) < 0
+      ) {
         homeScore = match.homeScore;
         awayScore = match.awayScore;
         homePrevScore = match.homeScore;
