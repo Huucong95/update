@@ -13,7 +13,7 @@ const currentDate = `${date.getFullYear()}-${
   date.getMonth() + 1
 }-${date.getDate()}`;
 const competition = "17"; // Worlcup 2022
-const dataUrl = `https://api.fifa.com/api/v3/calendar/matches?count=500&from=2022-11-20T00:00:00Z&to=2022-11-30T10:00:00Z&idCompetition=${competition}`;
+const dataUrl = `https://api.fifa.com/api/v3/calendar/matches?count=500&from=2022-11-20T00:00:00Z&to=2022-12-20T10:00:00Z&idCompetition=${competition}`;
 
 // --------------------------------------------------------
 // Init firebase
@@ -97,88 +97,81 @@ async function process_tasks() {
     c++;
     console.log("-------------------------------------");
     console.log(
-      `${c}. ${item.Home.Abbreviation} ${item.Home.Score} vs. ${item.Away.Score} ${item.Away.Abbreviation}`
+      `${c}. ${item.Home?.Abbreviation} ${item.Home?.Score} vs. ${item.Away?.Score} ${item.Away?.Abbreviation}`
     );
     for await (const match of matches.val()) {
       matchChanged = false;
-      //   console.log( match?.timestamp - Math.floor(new Date().getTime() / 1000) < 0);
-      if (match?.fifaId === item.IdMatch) {
-        homeScore = match.homeScore;
-        awayScore = match.awayScore;
-        homePrevScore = match.homeScore;
-        awayPrevScore = match.awayScore;
-        if (
-          parseInt(item.Home.Score) >= 0 &&
-          match.homeScore !== item.Home.Score
-        ) {
-          if (match.timestamp - Math.floor(new Date().getTime() / 1000) < 0) {
+      if (isStart(match?.timestamp)) {
+        if (match?.fifaId === item.IdMatch) {
+          homeScore = match.homeScore;
+          awayScore = match.awayScore;
+          homePrevScore = match.homeScore;
+          awayPrevScore = match.awayScore;
+          if (
+            parseInt(item.Home.Score) >= 0 &&
+            match.homeScore !== item.Home.Score
+          ) {
             db.ref(`matches/${match.game}/homeScore`).set(item.Home.Score);
             matchChanged = true;
             console.log("Update Home Score: " + item.Home.Score);
             homeScore = item.Home.Score;
           }
-        }
-        if (
-          parseInt(item.Away.Score) >= 0 &&
-          match.awayScore !== item.Away.Score
-        ) {
-          if (match.timestamp - Math.floor(new Date().getTime() / 1000) < 0) {
+          if (
+            parseInt(item.Away.Score) >= 0 &&
+            match.awayScore !== item.Away.Score
+          ) {
             db.ref(`matches/${match.game}/awayScore`).set(item.Away.Score);
             matchChanged = true;
             console.log("Update Away Score: " + item.Away.Score);
             awayScore = item.Away.Score;
           }
-        }
-        if (matchChanged) {
-          if (
-            item.Home.Score !== null &&
-            item.Away.Score !== null &&
-            match.timestamp - Math.floor(new Date().getTime() / 1000) < 0
-          ) {
-            const users = db.ref().child("users");
-            const snapshot = await users?.once("value");
-            const usersDetails = await snapshot.val();
-            for (const [key, value] of Object.entries(usersDetails)) {
-              const predictions = db
-                .ref()
-                .child(`predictions/${key}/${match.game}`);
-              const predSnapshot = await predictions.once("value");
-              const pred = predSnapshot.val();
-              if (pred) {
-                beforePoints = getScore(
-                  homePrevScore,
-                  awayPrevScore,
-                  pred.homePrediction,
-                  pred.awayPrediction
-                );
-                points = getScore(
-                  homeScore,
-                  awayScore,
-                  pred.homePrediction,
-                  pred.awayPrediction
-                );
-                afterPoints = points;
-                db.ref(`predictions/${key}/${match.game}/points`).set(points);
-                if (beforePoints !== afterPoints) {
-                  await db
-                    .ref(`predictions/${key}/${match.game}/points`)
-                    .set(points);
-                  const ztbee = db.ref().child(`users/${key}/score`);
-                  const scoreSnapshot = await ztbee.once("value");
-                  if (scoreSnapshot.exists()) {
-                    const points2 =
-                      scoreSnapshot.val() - beforePoints + afterPoints;
-                    db.ref(`users/${key}/score`).set(points2);
-                    console.log(
-                      "name:",
-                      value.userName,
-                      "points:",
-                      points,
-                      "totalPoint: ",
-                      points2
-                    );
-                  } else {
-                    db.ref(`users/${key}/score`).set(afterPoints);
+          if (matchChanged) {
+            if (item.Home.Score !== null && item.Away.Score !== null) {
+              const users = db.ref().child("users");
+              const snapshot = await users?.once("value");
+              const usersDetails = await snapshot.val();
+              for (const [key, value] of Object.entries(usersDetails)) {
+                const predictions = db
+                  .ref()
+                  .child(`predictions/${key}/${match.game}`);
+                const predSnapshot = await predictions.once("value");
+                const pred = predSnapshot.val();
+                if (pred) {
+                  beforePoints = getScore(
+                    homePrevScore,
+                    awayPrevScore,
+                    pred.homePrediction,
+                    pred.awayPrediction
+                  );
+                  points = getScore(
+                    homeScore,
+                    awayScore,
+                    pred.homePrediction,
+                    pred.awayPrediction
+                  );
+                  afterPoints = points;
+                  db.ref(`predictions/${key}/${match.game}/points`).set(points);
+                  if (beforePoints !== afterPoints) {
+                    await db
+                      .ref(`predictions/${key}/${match.game}/points`)
+                      .set(points);
+                    const ztbee = db.ref().child(`users/${key}/score`);
+                    const scoreSnapshot = await ztbee.once("value");
+                    if (scoreSnapshot.exists()) {
+                      const points2 =
+                        scoreSnapshot.val() - beforePoints + afterPoints;
+                      db.ref(`users/${key}/score`).set(points2);
+                      console.log(
+                        "name:",
+                        value.userName,
+                        "points:",
+                        points,
+                        "totalPoint: ",
+                        points2
+                      );
+                    } else {
+                      db.ref(`users/${key}/score`).set(afterPoints);
+                    }
                   }
                 }
               }
