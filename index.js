@@ -50,13 +50,13 @@ const getScore = (home, visitor, homePrediction, visitorPrediction) => {
   let points = 0;
   if (home >= 0 && homePrediction != null && visitorPrediction != null) {
     if (home == homePrediction && visitor == visitorPrediction) {
-      points = 15;
+      points = 20;
     } else {
       if (
         getWinner(home, visitor) == getWinner(homePrediction, visitorPrediction)
       ) {
         points =
-          10 -
+          15 -
           Math.abs(homePrediction - home) -
           Math.abs(visitorPrediction - visitor);
         if (points < 0) {
@@ -187,19 +187,12 @@ try {
     console.log(`server started on port ${PORT}`);
   });
 
-//   setInterval(function () {
-//     c = 0;
-//     process_tasks();
-//   }, 60000);
+  //   setInterval(function () {
+  //     c = 0;
+  //     process_tasks();
+  //   }, 60000);
 
   process_tasks();
-  //   setTimeout(() => {
-  //     process_tasks();
-  //   }, 10000);
-  //   // setTimeout(() => {
-  //   //   process.exit(1);
-  //   // }, 10000);
-  //   setInterval;
 } catch (err) {
   console.log("Error getting documents", err);
 }
